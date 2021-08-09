@@ -26,7 +26,7 @@ git clone git@github.com:crlero/snakemake-tutorial.git
 
 ```bash
 cd snakemake-tutorial/handson/
-conda env create -n tutorial --file workflow/environment.yaml
+conda env create --name tutorial --file=workflow/environment.yaml
 conda activate tutorial
 ```
 
