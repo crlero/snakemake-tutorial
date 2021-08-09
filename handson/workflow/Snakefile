@@ -1,4 +1,4 @@
-configfile: "config.yaml"
+# configfile: "config.yaml"
 
 # DISTANCES = ["bray", "euclidean", "jaccard", "jsd", "unifrac", "wunifrac"]
 # TAXONS = ["Species", "Genus", "Family"]
@@ -10,16 +10,16 @@ rule all:
 		"results/relative_abundance/rabuplot_jjj.png",
 		"results/relative_abundance/rabuplot_ad.png",
 
-		#expand("results/distances/distance_{distance}_{taxon}_{threshold}.RData",
-		#		distance=config["distances"], taxon=config["taxons"], threshold=config["threshold_abundance"]),
+#		expand("results/distances/distance_{distance}_{taxon}_{threshold}.RData",
+#				distance=config["distances"], taxon=config["taxons"], threshold=config["threshold_abundance"]),
 		
-		expand("results/mds/mds_{taxon}_{threshold}_{outcome}.png",
-				taxon=config["taxons"], threshold=config["threshold_abundance"], outcome=config["outcomes"])
+#		expand("results/mds/mds_{taxon}_{threshold}_{outcome}.png",
+#				taxon=config["taxons"], threshold=config["threshold_abundance"], outcome=config["outcomes"])
 
 
-# snakemake --rulegraph | dot -Tpng > rulegraph.png
-# snakemake --dag | dot -Tpng > dag.png
-# snakemake --report report.html
+# snakemake --rulegraph | dot -Tpng > workflow/rulegraph.png
+# snakemake --dag | dot -Tpng > workflow/dag.png
+# snakemake --report workflow/report.html
 
 
 rule relative_abundance:
