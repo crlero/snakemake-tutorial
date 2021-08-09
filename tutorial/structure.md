@@ -6,9 +6,12 @@ Each workflow should be structured as following:
 my_project
 ├── .gitignore
 ├── README.md
+├── config
+│   ├── config.yaml
 ├── workflow
 │   ├── envs
 |   │   ├── environment.yaml
+│   ├── benchmarks
 │   ├── scripts
 |   │   ├── script1.py
 |   │   └── script2.R
@@ -16,11 +19,10 @@ my_project
 |   │   ├── notebook1.py.ipynb
 |   │   └── notebook2.r.ipynb
 │   ├── report
-|   │   ├── report.rst
+|   │   ├── report.html
 |   └── Snakefile
-├── config
-│   ├── config.yaml
 ├── results
+├── logs
 └── resources
 ```
 
