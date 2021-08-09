@@ -1,0 +1,74 @@
+configfile: "config.yaml"
+
+# DISTANCES = ["bray", "euclidean", "jaccard", "jsd", "unifrac", "wunifrac"]
+# TAXONS = ["Species", "Genus", "Family"]
+
+rule all:
+	input:
+		"results/relative_abundance/rabuplot_delivery.png",
+		"results/relative_abundance/rabuplot_j45.png",
+		"results/relative_abundance/rabuplot_jjj.png",
+		"results/relative_abundance/rabuplot_ad.png",
+
+		#expand("results/distances/distance_{distance}_{taxon}_{threshold}.RData",
+		#		distance=config["distances"], taxon=config["taxons"], threshold=config["threshold_abundance"]),
+		
+		expand("results/mds/mds_{taxon}_{threshold}_{outcome}.png",
+				taxon=config["taxons"], threshold=config["threshold_abundance"], outcome=config["outcomes"])
+
+
+# snakemake --rulegraph | dot -Tpng > rulegraph.png
+# snakemake --dag | dot -Tpng > dag.png
+# snakemake --report report.html
+
+
+rule relative_abundance:
+	input: phyloseq_file = "data/test_set.RData"
+	# input: phyloseq_file = config["inputs"]["phyloseq_file"]
+	output:
+		cs_fig = "results/relative_abundance/rabuplot_delivery.png",
+#		cs_fig = report("results/relative_abundance/rabuplot_delivery.png", category="Relative abundance"),
+		j45_fig = "results/relative_abundance/rabuplot_j45.png",
+		jjj_fig = "results/relative_abundance/rabuplot_jjj.png",
+		ad_fig = "results/relative_abundance/rabuplot_ad.png"
+	log: log_file = "logs/rabuplots.log"
+	benchmark: "workflow/benchmarks/rabuplots.tsv"
+	resources:
+		tmin = 10,
+		mem_gb = 1
+	threads: 1
+	script: "scripts/01_rabuplots.R"
+
+rule calculate_distances:
+	input: phyloseq_file = config["inputs"]["phyloseq_file"] 
+	output: outfile = "results/distances/distance_{distance}_{taxon}_{threshold}.RData"
+	log: log_file = "logs/distance_{distance}_{taxon}_{threshold}.log"
+	benchmark: "workflow/benchmarks/distance_{distance}_{taxon}_{threshold}.tsv"
+	params:
+		taxon = "{taxon}",
+		distance = "{distance}",
+		threshold_abundance = "{threshold}"
+	resources:
+		thour = 1,
+		mem_gb = 2
+	threads: 5
+	script: "scripts/02_calculate_beta_diversity.R"
+
+rule ordinate:
+	input:
+		f = expand("results/distances/distance_{distance}_{taxon}_{threshold}.RData",
+			distance=config["distances"], taxon=config["taxons"], threshold=config["threshold_abundance"])
+	output: mds_fig = "results/mds/mds_{taxon}_{threshold}_{outcome}.png",
+#	output: mds_fig = report("results/mds/mds_{taxon}_{threshold}_{outcome}.png", category="MDS", subcategory="{taxon}")
+	log: log_file = "logs/ordinate_{taxon}_{threshold}_{outcome}.log"
+	benchmark: "workflow/benchmarks/ordinate_{taxon}_{threshold}_{outcome}.tsv"
+	params:
+		distance_folder = "results/distances/",
+		taxon = "{taxon}",
+		threshold_abundance = "{threshold}",
+		outcome = "{outcome}"
+	resources:
+		tmin = 30,
+		mem_gb = 1
+	threads: 5
+	script: "scripts/03_ordinate.R"

@@ -1,0 +1,15 @@
+inputs:
+  phyloseq_file: data/test_set.RData
+taxons:
+  - Species
+  - Genus
+distances:
+  - bray
+  - euclidean
+  - jaccard
+  - jsd
+  - unifrac
+  - wunifrac
+threshold_abundance: 0.01
+outcomes:
+  - j45
