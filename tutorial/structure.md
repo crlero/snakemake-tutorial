@@ -2,6 +2,7 @@
 
 Each workflow should be structured as following:
 
+```tree
 my_project
 ├── .gitignore
 ├── README.md
@@ -21,5 +22,6 @@ my_project
 │   ├── config.yaml
 ├── results
 └── resources
-  
+```
+
 Read more: <https://snakemake.readthedocs.io/en/stable/snakefiles/deployment.html>
