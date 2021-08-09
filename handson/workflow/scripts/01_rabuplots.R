@@ -30,22 +30,22 @@ summarize_phyloseq(physeq)
 
 # Relative abundance plots for delivery mode
 print("Relative abundance plot for delivery mode")
-rabuplot(physeq, "cs_delivery")
-ggsave(snakemake@output$cs_fig, device="png", bg="white")
+p <- rabuplot(physeq, "cs_delivery")
+ggsave(filename=snakemake@output$cs_fig, plot=p, device="png", bg="white")
 
 # Relative abundance plots for asthma
 print("Relative abundance plot for J45")
-rabuplot(physeq, "j45")
-ggsave(snakemake@output$j45_fig, device="png", bg="white")
+p <- rabuplot(physeq, "j45")
+ggsave(filename=snakemake@output$j45_fig, plot=p, device="png", bg="white")
 
 # Relative abundance plots for wheeze
 print("Relative abundance plot for JJJ")
-rabuplot(physeq, "jjj")
-ggsave(snakemake@output$jjj_fig, device="png", bg="white")
+p <- rabuplot(physeq, "jjj")
+ggsave(filename=snakemake@output$jjj_fig, plot=p, device="png", bg="white")
 
 # Relative abundance plots for atopic dermatitis
 print("Relative abundance plot for AD")
-rabuplot(physeq, "ad")
-ggsave(snakemake@output$ad_fig, device="png", bg="white")
+p <- rabuplot(physeq, "ad")
+ggsave(filename=snakemake@output$ad_fig, plot=p, device="png", bg="white")
 
 print("Completed")
