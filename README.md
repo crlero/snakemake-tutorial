@@ -26,7 +26,7 @@ git clone git@github.com:crlero/snakemake-tutorial.git
 
 ## Recreate this tutorial environment
 
-In order to be able to run this workflow example, we must ensure we are running it within a defined environment. To do so, you can either create a new conda environment using the `yaml` file and download the specific dependencies defined in it or you can activate the environment from the zipped folder that I have placed in the NAS server to speed up the slow stuff :-). 
+In order to be able to run this workflow example, we must ensure we are running it within a defined environment. To do so, you can either create a new conda environment using the `yaml` file and download the specific dependencies defined in it or you can activate the environment from the zipped folder that I have placed in the NAS server to speed up the slow stuff :-).
 
 ### Create conda environment from the .yaml file
 
@@ -36,10 +36,9 @@ conda env create --name tutorial --file=workflow/environment.yaml
 conda activate tutorial
 ```
 
-### Unzip folder with the environment
+### Activate folder with the environment
 
 ```bash
-mkdir environment_tutorial
-tar xzvf /Volumes/UserFolders/cristina.leal/snakemake-tutorial/environment_tutorial.tar.gz -C environment_tutorial
-source environment_tutorial/bin/activate # activate the environment
+source environment_tutorial/bin/activate # activates the environment
+source environment_tutorial/bin/deactivate # deactivates the environment
 ```
