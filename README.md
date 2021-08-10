@@ -2,7 +2,7 @@
 
 ## Install miniconda3
 
-If you don't have conda (miniconda, conda or Anaconda) yet, install miniconda3.
+If you don't have conda (miniconda, conda or Anaconda) yet, install [Miniconda3 MaxOSX 64-bit bash](https://docs.conda.io/en/latest/miniconda.html).
 
 ```bash
 bash Miniconda3-latest-MacOSX-x86_64.sh
@@ -19,6 +19,8 @@ conda list
 Then, download this repository to your favourite local computer. If you already have `git` installed, you can download it with:
 
 ```git
+git clone https://github.com/crlero/snakemake-tutorial.git
+# or
 git clone git@github.com:crlero/snakemake-tutorial.git
 ```
 
