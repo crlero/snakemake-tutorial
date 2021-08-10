@@ -59,8 +59,8 @@ Congratulations you have finished your manuscript (whoop-whoop!) and now you wan
 Create a `yaml` file with your working conda environment.
 
 ```bash
-conda env export -n tutorial > workflow/environment.yml # from outside environment
-conda env export > workflow/environment.yml # from inside environment
+conda env export -n tutorial > workflow/environment.yaml # from outside environment
+conda env export > workflow/environment.yaml # from inside environment
 ```
 
 ... or you can also `ZIP` it into a folder (although this might be too heavy).
