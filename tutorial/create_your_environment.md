@@ -52,3 +52,20 @@ tmux new-session -s rstudio
 conda activate tutorial
 /Applications/RStudio.app/Contents/MacOS/RStudio
 ```
+
+## Export your environment
+
+Congratulations you have finished your manuscript (whoop-whoop!) and now you want to publish your data analysis code. So, you need to include your environment to make it fully reproducible.
+Create a `yaml` file with your working conda environment.
+
+```bash
+conda env export -n tutorial > workflow/environment.yml # from outside environment
+conda env export > workflow/environment.yml # from inside environment
+```
+
+... or you can also `ZIP` it into a folder (although this might be too heavy).
+
+```bash
+conda install conda-pack
+conda-pack --name tutorial --output environment_tutorial.tar.gz
+```
