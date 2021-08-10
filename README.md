@@ -39,6 +39,8 @@ conda activate tutorial
 ### Activate folder with the environment
 
 ```bash
+mkdir environment_tutorial
+tar xzvf /Volumes/UserFolders/cristina.leal/snakemake-tutorial/environment_tutorial.tar.gz -C environment_tutorial
 source environment_tutorial/bin/activate # activates the environment
 source environment_tutorial/bin/deactivate # deactivates the environment
 ```
