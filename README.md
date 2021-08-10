@@ -14,6 +14,14 @@ Follow the prompts on the installer screens and test the installation with:
 conda list
 ```
 
+and set up your conda channels:
+
+```bash
+conda config --add channels defaults
+conda config --add channels bioconda
+conda config --add channels conda-forge
+```
+
 ## Download this repo
 
 Then, download this repository to your favourite local computer. If you already have `git` installed, you can download it with:
