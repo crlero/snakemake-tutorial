@@ -45,7 +45,7 @@ rule calculate_distances:
 	resources:
 		thour = 1,
 		mem_gb = 2
-	threads: 5
+	threads: 1
 	script: "scripts/02_calculate_beta_diversity.R"
 
 rule ordinate:
@@ -64,5 +64,5 @@ rule ordinate:
 	resources:
 		tmin = 30,
 		mem_gb = 1
-	threads: 5
+	threads: 1
 	script: "scripts/03_ordinate.R"

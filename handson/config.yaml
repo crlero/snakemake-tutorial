@@ -10,6 +10,6 @@ distances:
   - jsd
   - unifrac
   - wunifrac
-threshold_abundance: 0.01
+threshold_prevalence: 5
 outcomes:
   - j45
