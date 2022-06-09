@@ -48,13 +48,16 @@ for (f in file_list.subset) {
   p <- plot_ordination(physeq, MDS,
                        color = var,
                        axes = c(1, 2)) +
+    stat_ellipse(aes_string(color = var, fill = var),
+      geom = "polygon", alpha = .1, size = .20,
+      level = .9, type = "t") +
     theme_minimal() +
     labs(
       title = paste0(str_replace_all(m, "_", " "), " ", norm),
       subtitle = paste0("N samples: ", nsamples(physeq),
                         ", N taxa: ", ntaxa(physeq),
-                        ", F: ", round(res.df$F, 2),
-                        ", p-value: ",
+                        ", R2(%): ", round(res.df$R2 * 100, 2),
+                        ", P: ",
                         format(subset(res.df, parameter == var)$pval,
                                              format = "e", digits = 1)),
       caption = paste0("dist ~ ", var)
