@@ -2,10 +2,6 @@ packages <- c("phyloseq", "microbiome", "copiome")
 for (p in packages) {
   library(p, character.only = TRUE)
 }
-if(!(require(copiome))) {
-  remotes::install_github("jonathanth/copiome@main")
-}
-
 log <- file(snakemake@log$log_file, open = "wt")
 sink(log)
 
@@ -26,7 +22,7 @@ if (taxon != "Species") {
 
 # filter taxa by prevalence
 physeq <- filter_phy(physeq,
-                     prevalence = snakemake@params$threshold_prevalence)
+                     prevalence = as.numeric(snakemake@params$threshold_prevalence))
 
 # transformation of data
 print("Calculating distance...")
@@ -39,7 +35,7 @@ if (midistance == "bray") {
   save(dist, physeq, norm, file = snakemake@output$outfile)
 } else if (midistance %in% c("jaccard", "unifrac")) {
   print(paste0("Distance: ", midistance))
-  norm = "PA"
+  norm <- "PA"
   if (midistance == "jaccard") {
     dist <- distance(physeq, method = midistance,
                      binary = TRUE)

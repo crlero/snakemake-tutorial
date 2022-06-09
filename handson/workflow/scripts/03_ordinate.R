@@ -16,7 +16,7 @@ taxon <- snakemake@params$taxon
 threshold <- snakemake@params$threshold_prevalence
 var <- snakemake@params$outcome
 
-file_list.subset <- file_list %>% 
+file_list.subset <- file_list %>%
   .[grepl(taxon, .)] %>%
   .[grepl(threshold, .)]
 
@@ -26,24 +26,24 @@ for (f in file_list.subset) {
   m <- str_replace(tail(unlist(str_split(f, "/")), 1), ".RData", "")
   print(paste0("Processing: ", m))
   midist <- head(unlist(str_split(tail(unlist(str_split(f, "/")), 1), "_")), 1)
-  
+
   # load distance
-  rm(dist)
-  load(f)
-  
+  # rm(dist)
+  load(f, verbose = TRUE)
+
   # ordinate
   MDS <- ordinate(physeq, "MDS", distance = dist)
-  
+
   # permanova
   formula <- as.formula(paste0("dist ~ ", var))
   res.adonis <- adonis2(formula,
                         data = sample_df(physeq),
                         by = "margin")
-  res.df <- as.data.frame(res.adonis) %>%
+  res.df <- data.frame(res.adonis) %>%
     mutate(parameter = rownames(.),
            distance = midist) %>%
     rename(pval = Pr..F.)
-  
+
   # plot MDS
   p <- plot_ordination(physeq, MDS,
                        color = var,
@@ -53,9 +53,10 @@ for (f in file_list.subset) {
       title = paste0(str_replace_all(m, "_", " "), " ", norm),
       subtitle = paste0("N samples: ", nsamples(physeq),
                         ", N taxa: ", ntaxa(physeq),
-                        ", F: ", round(res.df$F.Model, 2),
-                        ", p-value: ", format(subset(res.df, parameter == var)$pval,
-                                             format="e", digits=1)),
+                        ", F: ", round(res.df$F, 2),
+                        ", p-value: ",
+                        format(subset(res.df, parameter == var)$pval,
+                                             format = "e", digits = 1)),
       caption = paste0("dist ~ ", var)
     )
   mds[[m]] <- p

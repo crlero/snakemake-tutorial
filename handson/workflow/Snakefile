@@ -11,10 +11,10 @@ rule all:
 		"results/relative_abundance/rabuplot_ad.png",
 
 #		expand("results/distances/distance_{distance}_{taxon}_{threshold}.RData",
-#				distance=config["distances"], taxon=config["taxons"], threshold=config["threshold_abundance"]),
+#				distance=config["distances"], taxon=config["taxons"], threshold=config["threshold_prevalence"]),
 		
 #		expand("results/mds/mds_{taxon}_{threshold}_{outcome}.png",
-#				taxon=config["taxons"], threshold=config["threshold_abundance"], outcome=config["outcomes"])
+#				taxon=config["taxons"], threshold=config["threshold_prevalence"], outcome=config["outcomes"])
 
 rule relative_abundance:
 	input: phyloseq_file = "data/test_set.RData"
@@ -41,17 +41,17 @@ rule calculate_distances:
 	params:
 		taxon = "{taxon}",
 		distance = "{distance}",
-		threshold_abundance = "{threshold}"
+		threshold_prevalence = "{threshold}"
 	resources:
 		thour = 1,
 		mem_gb = 2
 	threads: 1
-	script: "scripts/02_calculate_beta_diversity.R"
+	script: "scripts/02_calculate_distance.R"
 
 rule ordinate:
 	input:
 		f = expand("results/distances/distance_{distance}_{taxon}_{threshold}.RData",
-			distance=config["distances"], taxon=config["taxons"], threshold=config["threshold_abundance"])
+			distance=config["distances"], taxon=config["taxons"], threshold=config["threshold_prevalence"])
 	output: mds_fig = "results/mds/mds_{taxon}_{threshold}_{outcome}.png",
 #	output: mds_fig = report("results/mds/mds_{taxon}_{threshold}_{outcome}.png", category="MDS", subcategory="{taxon}")
 	log: log_file = "logs/ordinate_{taxon}_{threshold}_{outcome}.log"
@@ -59,7 +59,7 @@ rule ordinate:
 	params:
 		distance_folder = "results/distances/",
 		taxon = "{taxon}",
-		threshold_abundance = "{threshold}",
+		threshold_prevalence = "{threshold}",
 		outcome = "{outcome}"
 	resources:
 		tmin = 30,

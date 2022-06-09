@@ -1,7 +1,13 @@
 # Load required packages
-packages <- c("phyloseq", "microbiome", "rabuplot", "ggplot2")
+packages <- c("phyloseq", "microbiome", "rabuplot", 
+              "copiome", "ggplot2")
 if(!(require(rabuplot))) {
 	remotes::install_github("jstokholm/rabuplot")
+    install.packages("BiocManager")
+	BiocManager::install("GenomeInfoDbData")
+}
+if(!(require(copiome))) {
+  remotes::install_github("jonathanth/copiome@main")
 }
 for (p in packages) {
 	library(p, character.only = TRUE)
